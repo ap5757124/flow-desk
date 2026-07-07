@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: flow-desk
+  datasource:
+    url: jdbc:mysql://localhost:13316/flow_desk?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+server:
+  port: 9966
+  servlet:
+    context-path: /ap
