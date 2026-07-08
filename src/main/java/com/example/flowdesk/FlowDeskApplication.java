@@ -14,22 +14,12 @@ import java.util.List;
 import java.util.Map;
 
 @SpringBootApplication
-@RestController
-@RequestMapping
 public class FlowDeskApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FlowDeskApplication.class, args);
     }
 
-
-    @GetMapping
-    public R<Map<String, String>> test() {
-        Map<String, String> map = new HashMap<>();
-        map.put("name", "name");
-        map.put("ms", "ms");
-        return R.success(map);
-    }
 }
 
 
