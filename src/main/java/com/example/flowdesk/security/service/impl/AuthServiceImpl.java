@@ -4,6 +4,7 @@ import com.example.flowdesk.common.exception.BusinessException;
 import com.example.flowdesk.common.exception.ErrorCode;
 import com.example.flowdesk.security.dto.req.LoginReq;
 import com.example.flowdesk.security.dto.res.LoginRes;
+import com.example.flowdesk.security.mapstruct.LoginResStructMapper;
 import com.example.flowdesk.security.service.AuthService;
 import com.example.flowdesk.system.entity.SysUser;
 import com.example.flowdesk.system.service.SysUserService;
@@ -16,6 +17,8 @@ public class AuthServiceImpl implements AuthService {
 
     private final SysUserService sysUserService;
 
+    private final LoginResStructMapper loginResStructMapper;
+
     @Override
     public LoginRes login(LoginReq loginReq) {
 
@@ -24,7 +27,7 @@ public class AuthServiceImpl implements AuthService {
                 loginReq.getUsername()
         );
         if (sysUser == null) {
-            throw new BusinessException(ErrorCode.AUTHENTICATION_FAILED, "用户名或密码错误");
+            throw new BusinessException(ErrorCode.AUTHENTICATION_FAILED, "用户名租户错误");
         }
 
         if (sysUser.getStatus().equals("0")) {
@@ -35,12 +38,6 @@ public class AuthServiceImpl implements AuthService {
             throw new BusinessException(ErrorCode.AUTHENTICATION_FAILED, "密码错误");
         }
 
-        return LoginRes.builder()
-                .userId(sysUser.getId())
-                .tenantId(sysUser.getTenantId())
-                .username(sysUser.getUsername())
-                .nickname(sysUser.getNickname())
-                .departmentId(sysUser.getDepartmentId())
-                .build();
+        return loginResStructMapper.toLoginRes(sysUser);
     }
 }

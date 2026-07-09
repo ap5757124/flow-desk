@@ -20,8 +20,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping(value = "login", name = "认证登录")
-    @Valid
-    public R<LoginRes> login(@RequestBody LoginReq loginReq) {
+    public R<LoginRes> login(@Valid @RequestBody LoginReq loginReq) {
         LoginRes loginRes = authService.login(loginReq);
         return R.success(loginRes);
     }
