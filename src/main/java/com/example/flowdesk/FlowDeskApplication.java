@@ -13,9 +13,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@SpringBootApplication
+/**
+ * FlowDesk 应用启动类。
+ *
+ * <p>{@code @SpringBootApplication} 会组合组件扫描、自动配置和配置类发现，
+ * 因此从这里启动后，Controller、Service、Mapper 等 Spring Bean 都会被加载。</p>
+ */
+@SpringBootApplication // 标记 Spring Boot 启动类，并启用自动配置和当前包下的组件扫描
 public class FlowDeskApplication {
 
+    /**
+     * Java 应用入口。Spring Boot 会在这里创建 IoC 容器并启动内置 Web 服务器。
+     */
     public static void main(String[] args) {
         SpringApplication.run(FlowDeskApplication.class, args);
     }

@@ -3,17 +3,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.flowdesk.system.mapper.SysPermissionMapper">
 
-
+    <!--
+        按“用户 -> 角色 -> 角色权限 -> 权限”链路查询权限码。
+        每次 JOIN 都同时匹配 tenant_id，防止错误关联到其他租户中相同 ID 的记录。
+    -->
     <select id="listPermissionCodesByUserId" resultType="java.lang.String">
+        <!-- DISTINCT 防止用户通过多个角色获得相同权限时返回重复权限码。 -->
         SELECT DISTINCT p.permission_code
         FROM sys_user_role ur
+                 <!-- 用户角色关联到角色，并强制租户一致。 -->
                  JOIN sys_role r ON ur.role_id = r.id AND ur.tenant_id = r.tenant_id
+                 <!-- 角色关联到角色权限表，并继续沿用用户所在租户。 -->
                  JOIN sys_role_permission rp ON rp.role_id = r.id AND rp.tenant_id = ur.tenant_id
+                 <!-- 角色权限关联到最终权限记录，并再次校验租户。 -->
                  JOIN sys_permission p ON p.id = rp.permission_id AND p.tenant_id = ur.tenant_id
         WHERE ur.user_id = #{userId}
           AND ur.tenant_id = #{tenantId}
+          <!-- 禁用或逻辑删除的角色不再产生权限。 -->
           AND r.`status` = 1
           AND r.deleted = 0
+          <!-- 禁用或逻辑删除的权限不能继续访问接口。 -->
+          AND p.`status` = 1
+          AND p.deleted = 0
     </select>
 
 </mapper>

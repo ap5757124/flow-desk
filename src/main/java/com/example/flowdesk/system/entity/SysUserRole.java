@@ -5,19 +5,20 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
-@TableName("sys_user_role")
+/** sys_user_role 关联表实体：把用户和角色绑定起来。 */
+@Data // Lombok 生成 getter、setter 和常用 Object 方法
+@TableName("sys_user_role") // 映射到 sys_user_role 表
 public class SysUserRole {
-    /** 主键,; */
+    /** 关联记录主键 ID。 */
     private int id ;
-    /** 租户ID,; */
+    /** 关联所属租户 ID，必须与用户和角色的租户一致。 */
     private int tenantId ;
-    /** 用户ID,; */
+    /** 被分配角色的用户 ID。 */
     private int userId ;
-    /** 角色ID,; */
+    /** 分配给用户的角色 ID。 */
     private int roleId ;
-    /** 创建时间,; */
+    /** 绑定创建时间。 */
     private LocalDateTime createTime ;
-    /** 更新时间,; */
+    /** 绑定最近更新时间。 */
     private LocalDateTime updateTime ;
 }

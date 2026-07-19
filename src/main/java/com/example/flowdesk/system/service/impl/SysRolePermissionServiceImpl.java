@@ -6,7 +6,8 @@ import com.example.flowdesk.system.mapper.SysRolePermissionMapper;
 import com.example.flowdesk.system.service.SysRolePermissionService;
 import org.springframework.stereotype.Service;
 
-@Service
+/** 角色权限关联业务服务的默认实现。 */
+@Service // 注册为角色权限业务 Spring Bean
 public class SysRolePermissionServiceImpl extends ServiceImpl<SysRolePermissionMapper, SysRolePermission>
         implements SysRolePermissionService {
 }
