@@ -2,18 +2,35 @@ package com.example.flowdesk.common.exception;
 
 
 import com.example.flowdesk.common.response.R;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public R<Void> handleAccessDeniedException(AccessDeniedException ex) {
+        return R.failed(
+                ErrorCode.ACCESS_DENIED.getCode(),
+                ErrorCode.ACCESS_DENIED.getMessage()
+        );
+    }
 
 
     //兜底异常处理
     @ExceptionHandler(Exception.class)
     public R<Void> handleException(Exception ex) {
+        log.error("Unhandled exception", ex);
         return R.failed(
                 ErrorCode.SYSTEM_ERROR.getCode(),
                 ErrorCode.SYSTEM_ERROR.getMessage()
@@ -40,6 +57,7 @@ public class GlobalExceptionHandler {
 
         return R.failed(ErrorCode.VALIDATION_ERROR.getCode(), message);
     }
+
 
 
 }

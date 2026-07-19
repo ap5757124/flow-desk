@@ -3,7 +3,9 @@ package com.example.flowdesk.security.controller;
 
 import com.example.flowdesk.common.response.R;
 import com.example.flowdesk.security.dto.req.LoginReq;
+import com.example.flowdesk.security.dto.req.RefreshTokenReq;
 import com.example.flowdesk.security.dto.res.LoginRes;
+import com.example.flowdesk.security.dto.res.RefreshTokenRes;
 import com.example.flowdesk.security.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +26,12 @@ public class AuthController {
         LoginRes loginRes = authService.login(loginReq);
         return R.success(loginRes);
     }
+
+    @PostMapping(value = "/refresh", name = "刷新token")
+    public R<RefreshTokenRes> refresh(@Valid @RequestBody RefreshTokenReq refreshTokenReq) {
+        RefreshTokenRes refreshTokenRes = authService.refreshToken(refreshTokenReq);
+        return R.success(refreshTokenRes);
+    }
+
 
 }

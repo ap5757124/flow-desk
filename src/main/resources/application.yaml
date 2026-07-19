@@ -1,3 +1,10 @@
+flow-desk:
+  security:
+    jwt:
+      secret: flow-desk-dev-secret-key-must-be-long-enough-123456
+      access-token-expiration-minutes: 120
+      refresh-token-expiration-days: 7
+
 spring:
   application:
     name: flow-desk
@@ -12,3 +19,5 @@ server:
   port: 9966
   servlet:
     context-path: /ap
+
+

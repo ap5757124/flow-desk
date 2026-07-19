@@ -10,4 +10,6 @@ public class LoginRes {
     private String username;
     private String nickname;
     private int departmentId;
+    private String accessToken;
+    private String refreshToken;
 }
