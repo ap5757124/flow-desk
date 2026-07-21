@@ -1,5 +1,7 @@
 package com.example.flowdesk.system.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -10,6 +12,7 @@ import java.time.LocalDateTime;
 @TableName("sys_role") // 映射到 sys_role 表
 public class SysRole {
     /** 角色主键 ID。 */
+    @TableId(value = "id", type = IdType.AUTO) // MyBatis-Plus 注解：主键字段映射到 id 列，并使用数据库自增 ID
     private int id ;
     /** 角色所属租户 ID。 */
     private int tenantId ;

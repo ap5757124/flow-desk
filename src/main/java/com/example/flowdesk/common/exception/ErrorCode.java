@@ -17,6 +17,8 @@ public enum ErrorCode {
     AUTHENTICATION_FAILED(401, "认证失败"),
     ACCESS_DENIED(403, "无访问权限"),
     RESOURCE_NOT_FOUND(404, "资源不存在"),
+    BUSINESS_CONFLICT(409, "业务状态冲突"),
+    DUPLICATE_REQUEST(409, "重复操作"),
     SYSTEM_ERROR(500, "系统异常");
 
     /** 对外返回的数字错误码，同时对应 HTTP 状态码。 */
